@@ -8,8 +8,18 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
+  <!-- Welcome Modal -->
+  <div id="welcome-modal" class="modal">
+    <div class="modal-content">
+      <h2>SayedRahim Sadat welcomes you!</h2>
+      <p>Welcome to the Guess the Number Game 🎯</p>
+      <button id="close-modal">Thanks!</button>
+    </div>
+  </div>
+
   <div class="game-container">
     <h1>🎯 Guess the Number!</h1>
+    <h2 class="author-name">Created by SayedRahim Sadat</h2>
     <p>Guess a number between <strong>1</strong> and <strong>100</strong></p>
 
     <div class="input-section">
