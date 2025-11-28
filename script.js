@@ -1,7 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
   let secretNumber;
   let guesses = [];
-  const maxAttempts = 20;
+  const maxAttempts = 10;
+
+  let successCount = 0;
+  let failCount = 0;
 
   const guessInput = document.getElementById('guess-input');
   const guessBtn = document.getElementById('guess-btn');
@@ -10,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const guessesList = document.getElementById('guesses-list');
   const attemptsCount = document.getElementById('attempts-count');
   const progressBar = document.getElementById('progress-bar');
+  const successDisplay = document.getElementById('success-count');
+  const failDisplay = document.getElementById('fail-count');
 
   function startGame() {
     secretNumber = Math.floor(Math.random() * 100) + 1;
@@ -28,8 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
     li.className = isCorrect ? 'correct' : 'incorrect';
     li.innerHTML += isCorrect ? ' ✅' : ' ❌';
     guessesList.appendChild(li);
-
-    // Scroll to latest guess
     li.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }
 
@@ -47,6 +50,21 @@ document.addEventListener('DOMContentLoaded', () => {
     progressBar.style.width = percent + '%';
   }
 
+  function endGame(success) {
+    if (success) {
+      feedback.textContent = `🎉 You guessed it! The number was ${secretNumber}.`;
+      launchConfetti();
+      successCount++;
+    } else {
+      feedback.textContent = `❌ You failed! The number was ${secretNumber}. Try again.`;
+      failCount++;
+    }
+    successDisplay.textContent = successCount;
+    failDisplay.textContent = failCount;
+    guessBtn.disabled = true;
+    guessInput.disabled = true;
+  }
+
   guessBtn.addEventListener('click', () => {
     const guess = Number(guessInput.value);
 
@@ -61,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (guesses.length >= maxAttempts) {
-      feedback.textContent = '❌ Maximum attempts reached! Restart the game.';
+      endGame(false);
       return;
     }
 
@@ -69,19 +87,25 @@ document.addEventListener('DOMContentLoaded', () => {
     updateProgress();
 
     if (guess === secretNumber) {
-      feedback.textContent = `🎉 Congratulations! You guessed the number ${secretNumber}!`;
       addGuess(guess, true);
-      launchConfetti();
+      endGame(true);
     } else {
-      feedback.textContent = guess < secretNumber ? '🔺 Too low!' : '🔻 Too high!';
       addGuess(guess, false);
+      feedback.textContent = guess < secretNumber ? '🔺 Too low!' : '🔻 Too high!';
+      if (guesses.length === maxAttempts) {
+        endGame(false);
+      }
     }
 
     guessInput.value = '';
     guessInput.focus();
   });
 
-  restartBtn.addEventListener('click', startGame);
+  restartBtn.addEventListener('click', () => {
+    startGame();
+    guessBtn.disabled = false;
+    guessInput.disabled = false;
+  });
 
   startGame();
 });
