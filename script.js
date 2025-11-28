@@ -16,6 +16,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const successDisplay = document.getElementById('success-count');
   const failDisplay = document.getElementById('fail-count');
 
+  const welcomeModal = document.getElementById('welcome-modal');
+  const closeModalBtn = document.getElementById('close-modal');
+
+  // Show modal on page load
+  welcomeModal.style.display = 'flex';
+  guessBtn.disabled = true;
+  guessInput.disabled = true;
+
+  closeModalBtn.addEventListener('click', () => {
+    welcomeModal.style.display = 'none';
+    guessBtn.disabled = false;
+    guessInput.disabled = false;
+  });
+
   function startGame() {
     secretNumber = Math.floor(Math.random() * 100) + 1;
     guesses = [];
@@ -24,6 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
     guessInput.value = '';
     attemptsCount.textContent = '0';
     progressBar.style.width = '0%';
+    guessBtn.disabled = false;
+    guessInput.disabled = false;
     console.log('Secret Number:', secretNumber); // for testing
   }
 
@@ -37,11 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function launchConfetti() {
-    confetti({
-      particleCount: 150,
-      spread: 70,
-      origin: { y: 0.6 }
-    });
+    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
   }
 
   function updateProgress() {
@@ -101,11 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     guessInput.focus();
   });
 
-  restartBtn.addEventListener('click', () => {
-    startGame();
-    guessBtn.disabled = false;
-    guessInput.disabled = false;
-  });
+  restartBtn.addEventListener('click', startGame);
 
   startGame();
 });
