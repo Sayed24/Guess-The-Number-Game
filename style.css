@@ -57,12 +57,15 @@ button:hover {
 #feedback {
   margin-top: 15px;
   font-size: 1.2em;
+  min-height: 24px;
 }
 
 ul#guesses-list {
   list-style: none;
   padding: 0;
   margin-top: 10px;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 ul#guesses-list li {
