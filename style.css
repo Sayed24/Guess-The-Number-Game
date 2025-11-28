@@ -60,6 +60,26 @@ button:hover {
   min-height: 24px;
 }
 
+.attempts-section {
+  margin: 10px 0;
+}
+
+#progress-container {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  height: 15px;
+  width: 100%;
+  margin-top: 5px;
+}
+
+#progress-bar {
+  height: 100%;
+  width: 0;
+  background-color: #4CAF50;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
 ul#guesses-list {
   list-style: none;
   padding: 0;
