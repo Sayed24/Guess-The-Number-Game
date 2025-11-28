@@ -1,87 +1,77 @@
 body {
-    background: linear-gradient(135deg, #1e1f26, #2d2f3a);
-    color: #ffffff;
-    font-family: "Poppins", sans-serif;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #3b3b98, #778beb);
+    color: white;
     text-align: center;
-    margin: 0;
-    padding: 0;
-}
-
-header {
     padding: 20px;
 }
 
-.creator {
-    color: #00d1ff;
+header h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.name {
+    color: #f7d794;
     font-weight: bold;
 }
 
-.container {
-    width: 90%;
-    max-width: 500px;
-    margin: auto;
-    background: #2c2f3e;
+.game-container {
+    background: rgba(255, 255, 255, 0.12);
     padding: 25px;
     border-radius: 15px;
-    margin-top: 25px;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    width: 90%;
+    max-width: 450px;
+    margin: auto;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
 }
 
 input {
-    padding: 12px;
-    width: 80%;
-    margin: 15px 0;
-    border-radius: 10px;
+    padding: 10px;
+    width: 70%;
     border: none;
-    font-size: 16px;
+    border-radius: 5px;
+    font-size: 18px;
 }
 
 button {
-    padding: 12px 20px;
+    padding: 10px 20px;
+    background: #f7d794;
     border: none;
-    border-radius: 10px;
-    background: #00d1ff;
-    color: #000;
-    font-weight: bold;
+    border-radius: 5px;
     cursor: pointer;
-    transition: 0.2s;
+    font-size: 18px;
+    margin-top: 10px;
 }
 
 button:hover {
-    background: #00a8cc;
+    background: #f5cd79;
+}
+
+#message {
+    font-size: 20px;
+    margin: 15px 0;
 }
 
 .hidden {
     display: none;
 }
 
-.stats {
+.guess-history {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.guess-history ul {
+    list-style: none;
+    padding: 0;
+}
+
+.guess-history li {
+    background: rgba(255, 255, 255, 0.18);
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 8px;
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 15px;
-}
-
-#result {
-    margin-top: 20px;
-    font-size: 18px;
-}
-
-#previous-guesses {
-    margin-top: 15px;
-    color: #cccccc;
-}
-
-.success {
-    color: #00ff9d;
-    font-weight: bold;
-}
-
-.fail {
-    color: #ff4b4b;
-    font-weight: bold;
-}
-
-.remaining {
-    margin-top: 20px;
-    font-size: 18px;
+    justify-content: space-between;
 }
