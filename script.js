@@ -1,12 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
   let secretNumber;
   let guesses = [];
+  const maxAttempts = 20;
 
   const guessInput = document.getElementById('guess-input');
   const guessBtn = document.getElementById('guess-btn');
   const restartBtn = document.getElementById('restart-btn');
   const feedback = document.getElementById('feedback');
   const guessesList = document.getElementById('guesses-list');
+  const attemptsCount = document.getElementById('attempts-count');
+  const progressBar = document.getElementById('progress-bar');
 
   function startGame() {
     secretNumber = Math.floor(Math.random() * 100) + 1;
@@ -14,6 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
     feedback.textContent = '';
     guessesList.innerHTML = '';
     guessInput.value = '';
+    attemptsCount.textContent = '0';
+    progressBar.style.width = '0%';
     console.log('Secret Number:', secretNumber); // for testing
   }
 
@@ -24,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     li.innerHTML += isCorrect ? ' ✅' : ' ❌';
     guessesList.appendChild(li);
 
-    // Scroll to the latest guess
+    // Scroll to latest guess
     li.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }
 
@@ -34,6 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
       spread: 70,
       origin: { y: 0.6 }
     });
+  }
+
+  function updateProgress() {
+    attemptsCount.textContent = guesses.length;
+    const percent = Math.min((guesses.length / maxAttempts) * 100, 100);
+    progressBar.style.width = percent + '%';
   }
 
   guessBtn.addEventListener('click', () => {
@@ -49,12 +60,18 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    if (guesses.length >= maxAttempts) {
+      feedback.textContent = '❌ Maximum attempts reached! Restart the game.';
+      return;
+    }
+
     guesses.push(guess);
+    updateProgress();
 
     if (guess === secretNumber) {
       feedback.textContent = `🎉 Congratulations! You guessed the number ${secretNumber}!`;
       addGuess(guess, true);
-      launchConfetti(); // trigger confetti
+      launchConfetti();
     } else {
       feedback.textContent = guess < secretNumber ? '🔺 Too low!' : '🔻 Too high!';
       addGuess(guess, false);
@@ -66,6 +83,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   restartBtn.addEventListener('click', startGame);
 
-  // Start the game initially
   startGame();
 });
