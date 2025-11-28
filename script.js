@@ -23,6 +23,17 @@ document.addEventListener('DOMContentLoaded', () => {
     li.className = isCorrect ? 'correct' : 'incorrect';
     li.innerHTML += isCorrect ? ' ✅' : ' ❌';
     guessesList.appendChild(li);
+
+    // Scroll to the latest guess
+    li.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+
+  function launchConfetti() {
+    confetti({
+      particleCount: 150,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
   }
 
   guessBtn.addEventListener('click', () => {
@@ -43,12 +54,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (guess === secretNumber) {
       feedback.textContent = `🎉 Congratulations! You guessed the number ${secretNumber}!`;
       addGuess(guess, true);
+      launchConfetti(); // trigger confetti
     } else {
       feedback.textContent = guess < secretNumber ? '🔺 Too low!' : '🔻 Too high!';
       addGuess(guess, false);
     }
 
     guessInput.value = '';
+    guessInput.focus();
   });
 
   restartBtn.addEventListener('click', startGame);
