@@ -1,74 +1,79 @@
 let randomNumber = Math.floor(Math.random() * 100) + 1;
-let attempts = 0;
-let wins = 0;
-let fails = 0;
+let attemptsLeft = 10;
+let successCount = 0;
+let failCount = 0;
+let username = "";
 
-const attemptsEl = document.getElementById("attempts");
-const winsEl = document.getElementById("wins");
-const failsEl = document.getElementById("fails");
-const messageEl = document.getElementById("message");
-const historyList = document.getElementById("historyList");
-const restartBtn = document.getElementById("restartBtn");
+// Save username and start game
+function saveUsername() {
+    const input = document.getElementById("username-input").value.trim();
 
-document.getElementById("guessBtn").addEventListener("click", makeGuess);
-
-function makeGuess() {
-    const guess = Number(document.getElementById("userInput").value);
-    if (!guess || guess < 1 || guess > 100) {
-        messageEl.textContent = "Enter a valid number (1-100).";
+    if (input === "") {
+        alert("Please enter your name!");
         return;
     }
 
-    attempts++;
-    attemptsEl.textContent = attempts;
+    username = input;
 
-    let resultText = "";
-    let icon = "";
+    document.getElementById("welcome").innerText = `Welcome, ${username}!`;
+    document.getElementById("player-name-display").innerText = `Player: ${username}`;
 
-    if (guess === randomNumber) {
-        resultText = "Correct!";
-        icon = "✔️";
-        wins++;
-        winsEl.textContent = wins;
-        endGame(true);
-    } else if (guess > randomNumber) {
-        resultText = "Too high!";
-        icon = "❌";
-    } else {
-        resultText = "Too low!";
-        icon = "❌";
+    document.getElementById("username-section").classList.add("hidden");
+    document.getElementById("game-section").classList.remove("hidden");
+}
+
+// Check guess
+function checkGuess() {
+    const guess = Number(document.getElementById("guess-input").value);
+    const resultDiv = document.getElementById("result");
+    const previousDiv = document.getElementById("previous-guesses");
+
+    if (!guess) {
+        alert("Please enter a valid number.");
+        return;
     }
 
-    addHistory(guess, resultText, icon);
+    attemptsLeft--;
+    document.getElementById("attempts").innerText = attemptsLeft;
 
-    if (attempts >= 10) {
-        fails++;
-        failsEl.textContent = fails;
-        messageEl.textContent = "Game Over! You used all attempts.";
+    let icon = "";
+    let message = "";
+
+    if (guess === randomNumber) {
+        icon = "✔️";
+        message = `<span class='success'>${username}, you guessed it right! ${icon}</span>`;
+        successCount++;
+        document.getElementById("success-count").innerText = successCount;
+        endGame(true);
+    } else if (guess < randomNumber) {
+        icon = "⬇️";
+        message = `${username}, your guess is too low. ${icon}`;
+    } else {
+        icon = "⬆️";
+        message = `${username}, your guess is too high. ${icon}`;
+    }
+
+    previousDiv.innerHTML += `<p>${guess} ${icon}</p>`;
+    resultDiv.innerHTML = message;
+
+    // Game fail
+    if (attemptsLeft === 0) {
+        failCount++;
+        document.getElementById("fail-count").innerText = failCount;
+
+        resultDiv.innerHTML = `<span class='fail'>${username}, you ran out of attempts! ❌</span>`;
         endGame(false);
     }
 }
 
-function addHistory(guess, text, icon) {
-    const li = document.createElement("li");
-    li.innerHTML = `<span>${guess}</span> <span>${text} ${icon}</span>`;
-    historyList.appendChild(li);
-}
-
+// Restart the game
 function endGame(won) {
-    messageEl.textContent = won ? "🎉 You guessed it!" : "Try again!";
-    restartBtn.classList.remove("hidden");
-    document.getElementById("guessBtn").disabled = true;
-    document.getElementById("userInput").disabled = true;
+    setTimeout(() => {
+        randomNumber = Math.floor(Math.random() * 100) + 1;
+        attemptsLeft = 10;
+        document.getElementById("attempts").innerText = attemptsLeft;
+        document.getElementById("result").innerText = "";
+        document.getElementById("previous-guesses").innerHTML = "";
+        document.getElementById("guess-input").value = "";
+    }, 2000);
 }
-
-restartBtn.addEventListener("click", () => {
-    randomNumber = Math.floor(Math.random() * 100) + 1;
-    attempts = 0;
-    attemptsEl.textContent = 0;
-    historyList.innerHTML = "";
-    messageEl.textContent = "";
-    restartBtn.classList.add("hidden");
-    document.getElementById("guessBtn").disabled = false;
-    document.getElementById("userInput").disabled = false;
-});
