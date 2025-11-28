@@ -5,32 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guess The Number Game</title>
 
-    <!-- Fancy Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
-    <!-- Confetti Script (SAFE HTTPS) -->
+    <!-- SAFE Confetti Script -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- WELCOME MODAL -->
-    <div class="modal-overlay" id="welcome-modal">
-        <div class="modal-content">
-            <h2>Welcome to the Game!</h2>
-            <p><strong>SayedRahim Sadat</strong> welcomes you to the Guess The Number game.</p>
-            <button id="close-modal">Thanks, Close</button>
-        </div>
+    <!-- 🔵 SIMPLE POP-UP MESSAGE (Not a modal!) -->
+    <div class="popup" id="welcome-popup">
+        🎉 Welcome! <strong>SayedRahim Sadat</strong> welcomes you to the game.
+        <button id="close-popup">Close</button>
     </div>
 
-    <!-- HEADER -->
     <header>
         <h1>🎮 Guess The Number</h1>
         <h3 class="author">Created by: <span>SayedRahim Sadat</span></h3>
     </header>
 
-    <!-- GAME WRAPPER -->
     <div class="game-container">
 
         <p class="attempt-info">Attempts: <span id="attempts-left">10</span> / 10</p>
