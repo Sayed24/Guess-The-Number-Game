@@ -1,77 +1,87 @@
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #3b3b98, #778beb);
-    color: white;
+    background: linear-gradient(135deg, #1e1f26, #2d2f3a);
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
     text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+header {
     padding: 20px;
 }
 
-header h1 {
-    font-size: 40px;
-    margin-bottom: 10px;
-}
-
-.name {
-    color: #f7d794;
+.creator {
+    color: #00d1ff;
     font-weight: bold;
 }
 
-.game-container {
-    background: rgba(255, 255, 255, 0.12);
+.container {
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    background: #2c2f3e;
     padding: 25px;
     border-radius: 15px;
-    width: 90%;
-    max-width: 450px;
-    margin: auto;
-    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    margin-top: 25px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
 }
 
 input {
-    padding: 10px;
-    width: 70%;
+    padding: 12px;
+    width: 80%;
+    margin: 15px 0;
+    border-radius: 10px;
     border: none;
-    border-radius: 5px;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 button {
-    padding: 10px 20px;
-    background: #f7d794;
+    padding: 12px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
+    background: #00d1ff;
+    color: #000;
+    font-weight: bold;
     cursor: pointer;
-    font-size: 18px;
-    margin-top: 10px;
+    transition: 0.2s;
 }
 
 button:hover {
-    background: #f5cd79;
-}
-
-#message {
-    font-size: 20px;
-    margin: 15px 0;
+    background: #00a8cc;
 }
 
 .hidden {
     display: none;
 }
 
-.guess-history {
-    margin-top: 20px;
-    text-align: left;
-}
-
-.guess-history ul {
-    list-style: none;
-    padding: 0;
-}
-
-.guess-history li {
-    background: rgba(255, 255, 255, 0.18);
-    padding: 8px;
-    margin: 5px 0;
-    border-radius: 8px;
+.stats {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    margin-bottom: 15px;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+#previous-guesses {
+    margin-top: 15px;
+    color: #cccccc;
+}
+
+.success {
+    color: #00ff9d;
+    font-weight: bold;
+}
+
+.fail {
+    color: #ff4b4b;
+    font-weight: bold;
+}
+
+.remaining {
+    margin-top: 20px;
+    font-size: 18px;
 }
