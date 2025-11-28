@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let attempts = 10;
     let guesses = [];
 
-    // Stats (stored locally)
     let successCount = localStorage.getItem('successCount') || 0;
     let failCount = localStorage.getItem('failCount') || 0;
 
@@ -17,14 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const successDisplay = document.getElementById('success-count');
     const failDisplay    = document.getElementById('fail-count');
 
-    const modal = document.getElementById('welcome-modal');
-    const closeModal = document.getElementById('close-modal');
+    const popup = document.getElementById('welcome-popup');
+    const closePopup = document.getElementById('close-popup');
 
     successDisplay.textContent = successCount;
     failDisplay.textContent = failCount;
 
-    closeModal.addEventListener('click', () => {
-        modal.style.display = 'none';
+    closePopup.addEventListener('click', () => {
+        popup.style.display = "none";
     });
 
     function startGame() {
