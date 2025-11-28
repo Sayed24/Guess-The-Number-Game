@@ -74,14 +74,39 @@ ul#guesses-list li {
   justify-content: space-between;
   font-weight: bold;
   background: rgba(255,255,255,0.1);
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: fadeIn 0.5s forwards;
 }
 
 .correct {
   background-color: #28a745;
   color: white;
+  animation: pop 0.5s forwards;
 }
 
 .incorrect {
   background-color: #dc3545;
   color: white;
+  animation: shake 0.3s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
 }
